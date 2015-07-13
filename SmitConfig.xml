@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SmitConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <changedCustomerDate>2015-07-08</changedCustomerDate>
+  <changedCustomerVehicleDate>2015-07-08</changedCustomerVehicleDate>
+  <lastOrderNumber>21330034</lastOrderNumber>
+</SmitConfig>

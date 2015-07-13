@@ -1,0 +1,1772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mit XMLSpy v2011 rel. 2 (x64) (http://www.altova.com) von Kurt Fugger (fmade GmbH) bearbeitet -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="interfaceData">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="dataProvider" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>will be defined from Fmade (name of DMS)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="interfaceVersion" type="xsd:int">
+					<xsd:annotation>
+						<xsd:documentation>version of the interface, if the interface will be extended</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="transmissionReason" nillable="true">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="100"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="callingUser" type="salesmanType" nillable="true">
+					<xsd:annotation>
+						<xsd:documentation>for DMS authorization system if necessary</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="customer" type="customerType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="customerVehicle" type="customerVehicleType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="contactPerson" type="contactPersonType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="salesVehicle" type="salesVehicleType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="invoice" type="invoiceType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="searchSalesVehicle" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="vehicleTypes" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="vehicleType" type="vehicleTypeType" minOccurs="0" maxOccurs="unbounded"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="brand" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>no occurance = all</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="model" type="xs:string" minOccurs="0"/>
+							<xsd:element name="price" type="FromToType" minOccurs="0"/>
+							<xsd:element name="ps" type="FromToType" minOccurs="0"/>
+							<xsd:element name="fuelType" type="xs:string" minOccurs="0"/>
+							<xsd:element name="standingTime" type="FromToType" minOccurs="0"/>
+							<xsd:element name="milage" type="FromToType" minOccurs="0"/>
+							<xsd:element name="bodywork" type="xs:string" minOccurs="0"/>
+							<xsd:element name="location" type="xs:string" minOccurs="0"/>
+							<xsd:element name="color" type="xs:string" minOccurs="0"/>
+							<xsd:element name="stockState" type="StockState" minOccurs="0"/>
+							<xsd:element name="salesState" type="SalesState" minOccurs="0"/>
+							<xsd:element name="vehicleGroup" type="xs:string" minOccurs="0"/>
+							<xsd:element name="firstRegistration" type="FromToDateType" minOccurs="0"/>
+							<xsd:element name="specialEquipment" type="xs:string" minOccurs="0"/>
+							<xsd:element name="salesman" type="xs:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>id of salesman who sold vehicle</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="deliveryDate" type="FromToDateType" minOccurs="0"/>
+							<xsd:element name="invoiceDate" type="FromToDateType" minOccurs="0"/>
+							<xsd:element name="namePrevOwner" type="xs:string" minOccurs="0"/>
+							<xsd:element name="nameBuyer" type="xs:string" minOccurs="0"/>
+							<xsd:element name="orderDate" type="FromToDateType" minOccurs="0"/>
+							<xsd:element name="vin" type="xs:string" minOccurs="0"/>
+							<xsd:element name="vinShort" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>last 7 of vin</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="xs:string">
+										<xsd:maxLength value="7"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+							<xsd:element name="licensePlate" type="xs:string" minOccurs="0"/>
+							<xsd:element name="cominationNumber" type="xs:string" minOccurs="0"/>
+							<xsd:element name="matchcode" type="xs:string" minOccurs="0"/>
+							<xsd:element name="salesVehicleKey" type="xs:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>for searching a specific vehicle</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="customerType">
+		<xsd:sequence>
+			<xsd:element name="customerNumber" type="customerIdentificationType">
+				<xsd:annotation>
+					<xsd:documentation>with customerLocation: unique identifier of customer in DMS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="deleted" type="xsd:boolean" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>customer is deleted</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fsalesNumber" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>number in Fsales if customer was created in Fsales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="externId" type="xsd:string" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>extern (DMS) unique Identifier of customer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="salutation" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="salutationLetter" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>salutation for letter,mail... f.e.: Dear Mr.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="id" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of reference table</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:int">
+									<xsd:totalDigits value="3"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="description" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>extra text for salutation</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="salutationType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="MALE"/>
+						<xsd:enumeration value="FEMALE"/>
+						<xsd:enumeration value="COMPANY"/>
+						<xsd:enumeration value="FAMILY"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="firstName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="lastName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="25"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name" minOccurs="0" maxOccurs="4">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2 or 3 or 4</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="name">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="matchcode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>search string to find customer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="address" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="street" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="zip" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="city" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="25"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="country" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="3"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="state" type="xsd:int" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>address state, reference table, f.e.: moved</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="phone" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="private" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="business" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="mobil" minOccurs="0" maxOccurs="2">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="sequence" type="xsd:int">
+										<xsd:annotation>
+											<xsd:documentation>1 or 2</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="number">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="20"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="fax" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="email" minOccurs="0" maxOccurs="2">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="address">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="64"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="branche" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>reference table necessary</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="customerType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="customer"/>
+						<xsd:enumeration value="prospect"/>
+						<xsd:enumeration value="lessor"/>
+						<xsd:enumeration value="sub-dealer"/>
+						<xsd:enumeration value="insurance"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="customerCategory" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>reference table</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="creation" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="lastChange" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+			<xsd:element name="birthDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="extraCode" minOccurs="0" maxOccurs="3">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2 or 3</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="code">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="1"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="balance" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="total" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="open" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="due" type="xsd:double" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="invoice" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="lastWokshop" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="lastPart" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="lastVehicle" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="lastContactDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>date of last contact with customer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="marketing" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="postWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="emailWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="faxWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="phoneWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="smsWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="unwantedMarketing" minOccurs="0" maxOccurs="2">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="sequence" type="xsd:int">
+										<xsd:annotation>
+											<xsd:documentation>1 or 2</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="type">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="4"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="preferredMarketing" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="post"/>
+									<xsd:enumeration value="email"/>
+									<xsd:enumeration value="fax"/>
+									<xsd:enumeration value="phone"/>
+									<xsd:enumeration value="sms"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="useData" type="xsd:boolean" nillable="true" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="numbers" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="vatNumber" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="companyRegistrationNumber" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="taxNumber" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="drivingLicense" type="drivingLicenseType" minOccurs="0"/>
+			<xsd:element name="newsletter" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ids" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="renaultID" type="xsd:integer" minOccurs="0"/>
+						<xsd:element name="renaultR2ID" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="50"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="daciaID" type="xsd:integer" minOccurs="0"/>
+						<xsd:element name="transferID" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>only Fsales is allowed to fill this id</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="nextSaleDate" type="xsd:date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="salesmanType">
+		<xsd:sequence>
+			<xsd:element name="identifier">
+				<xsd:annotation>
+					<xsd:documentation>unique identifier of salesman in DMS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="customerVehicleType">
+		<xsd:sequence>
+			<xsd:element name="customerNumber" type="customerIdentificationType">
+				<xsd:annotation>
+					<xsd:documentation>with customerLocation: unique identifier of customer in DMS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="vehicleNumber">
+				<xsd:annotation>
+					<xsd:documentation>with customerNumber: unique identifier of vehicle in DMS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="6"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="externId" type="xsd:string" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>extern (DMS) unique Identifier of vehicle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="prevExternId" type="xsd:string" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>previouse extern (DMS) unique Identifier of vehicle if changed (if changeable)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="vin">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="deleted" type="xsd:boolean" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>vehicle is deleted</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="licensePlate" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="brand" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="typeCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="type" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="modelYear" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="motorNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="deliveryDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="firstRegistration" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="milage" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="exteriorColor" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="interiorColor" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="kw" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ps" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="salesCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="lastInvoice" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="creation" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="lastChange" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="vehicleType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="vehicleTypeType">
+						<xsd:enumeration value="new"/>
+						<xsd:enumeration value="demo"/>
+						<xsd:enumeration value="used"/>
+						<xsd:enumeration value="agency"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="salesVehicleNumber" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>if this vehicle was once a sales vehicle, the unique number of the sales vehicle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="salesDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="lastRegistration" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="serialNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="testDate1" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="testDate2" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="cavityProtectionDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="others" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="keyCode1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="9"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="keyCode2" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="9"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="radioCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="vehicleGroup" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="capacity" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="totalWeight" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="payload" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="eurotaxCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="immobilizer" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="plipCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="8"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="kbaNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="guaranteeBooklet" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="dealerNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="motorCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="carsLetter" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="authorizationType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="fuelType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="fuelDescription" type="xsd:string" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>description of fuelType</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="doors" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="seats" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="bodyStyle" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="technicalType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="gearType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="gearNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="equipment" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="remark" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nationalCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="text1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="text2" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="text3" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="insurance" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="insuranceCustomerNumber" type="customerIdentificationType" minOccurs="0"/>
+						<xsd:element name="policyNumber" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="leasing" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="leasingCustomerNumber" type="customerIdentificationType" minOccurs="0"/>
+						<xsd:element name="variant" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="contractNumber" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="endOfLeasing" type="xsd:date" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="emission" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="particle" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="co2" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="nox" type="xsd:double" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="buyingLocation" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="driverContactPersonNumber" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="loanAmount" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="ids" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="transferID" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>only Fsales is allowed to fill this id</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="masterNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>specially for Switzerland, so called "Stammnummer"</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="customerIdentificationType">
+		<xsd:sequence>
+			<xsd:element name="location">
+				<xsd:annotation>
+					<xsd:documentation>with number: unique identifier of customer in DMS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="number">
+				<xsd:annotation>
+					<xsd:documentation>with location: unique identifier of customer in DMS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="6"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="contactPersonType">
+		<xsd:sequence>
+			<xsd:element name="customerNumber" type="customerIdentificationType">
+				<xsd:annotation>
+					<xsd:documentation>with customerLocation: unique identifier of customer in DMS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="contactPersonNumber">
+				<xsd:annotation>
+					<xsd:documentation>with customerNumber: unique identifier of contactPerson in DMS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="6"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="deleted" type="xsd:boolean" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>contact person is deleted</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="salutation" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="salutationLetter" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>salutation for letter,mail... f.e.: Dear Mr.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="id" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of reference table</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:int">
+									<xsd:totalDigits value="3"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="description" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>extra text for salutation</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="firstName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="lastName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="25"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name" minOccurs="0" maxOccurs="4">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2 or 3 or 4</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="name">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="matchcode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>search string to find contactPerson</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="phone" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="private" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="business" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="mobil" minOccurs="0" maxOccurs="2">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="sequence" type="xsd:int">
+										<xsd:annotation>
+											<xsd:documentation>1 or 2</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="number">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="20"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="fax" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="email" minOccurs="0" maxOccurs="2">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="address">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="64"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="birthDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="drivingLicense" type="drivingLicenseType" minOccurs="0"/>
+			<xsd:element name="creation" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="lastChange" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="salesman" type="salesmanType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="extraCode" minOccurs="0" maxOccurs="3">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2 or 3</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="code">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="1"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="salesInfo" minOccurs="0" maxOccurs="2">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="info">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="function" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="division" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="street" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="country" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="zipCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="city" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="marketing" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="postWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="emailWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="faxWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="phoneWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="smsWanted" type="xsd:boolean" nillable="true" minOccurs="0"/>
+						<xsd:element name="unwantedMarketing" minOccurs="0" maxOccurs="2">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="sequence" type="xsd:int">
+										<xsd:annotation>
+											<xsd:documentation>1 or 2</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="type">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="4"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="preferredMarketing" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="post"/>
+									<xsd:enumeration value="email"/>
+									<xsd:enumeration value="fax"/>
+									<xsd:enumeration value="phone"/>
+									<xsd:enumeration value="sms"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="useData" type="xsd:boolean" nillable="true" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="newsletter" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="telPrivate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="mobilePrivate" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="drivingLicenseType">
+		<xsd:sequence>
+			<xsd:element name="number" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="classes" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="7"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="authority" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="7"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="vehicleTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="new"/>
+			<xsd:enumeration value="demo"/>
+			<xsd:enumeration value="used"/>
+			<xsd:enumeration value="agency"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FromToType">
+		<xsd:sequence>
+			<xsd:element name="from" type="xs:double" minOccurs="0"/>
+			<xsd:element name="to" type="xs:double" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="StockState">
+		<xsd:restriction base="xs:string">
+			<xsd:enumeration value="bestellt"/>
+			<xsd:enumeration value="lagernd"/>
+			<xsd:enumeration value="ausgeliefert"/>
+			<xsd:enumeration value="in Reparatur"/>
+			<xsd:enumeration value="fiktiv"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="EPASticker">
+		<xsd:restriction base="xs:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="red"/>
+			<xsd:enumeration value="yellow"/>
+			<xsd:enumeration value="green"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SalesState">
+		<xsd:restriction base="xs:string">
+			<xsd:enumeration value="bestellt"/>
+			<xsd:enumeration value="reserviert"/>
+			<xsd:enumeration value="verfügbar"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FromToDateType">
+		<xsd:sequence>
+			<xsd:element name="from" type="xs:date" minOccurs="0"/>
+			<xsd:element name="to" type="xs:date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IncomeEffort">
+		<xsd:sequence>
+			<xsd:element name="code" type="xs:string" minOccurs="0"/>
+			<xsd:element name="text" type="xs:string"/>
+			<xsd:element name="price" type="xs:double"/>
+			<xsd:element name="reversal" type="xs:boolean" default="false" minOccurs="0"/>
+			<xsd:element name="group" type="xs:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Option">
+		<xsd:sequence>
+			<xsd:element name="code" type="xs:string" minOccurs="0"/>
+			<xsd:element name="text" type="xs:string"/>
+			<xsd:element name="price" type="xs:double"/>
+			<xsd:element name="print" type="xs:boolean" default="true" minOccurs="0"/>
+			<xsd:element name="group" type="xs:string" minOccurs="0"/>
+			<xsd:element name="purchasePrice" type="xs:double"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Accessory">
+		<xsd:sequence>
+			<xsd:element name="code" type="xs:string" minOccurs="0"/>
+			<xsd:element name="text" type="xs:string"/>
+			<xsd:element name="price" type="xs:double"/>
+			<xsd:element name="print" type="xs:boolean" default="true" minOccurs="0"/>
+			<xsd:element name="group" type="xs:string" minOccurs="0"/>
+			<xsd:element name="purchasePrice" type="xs:double"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="salesVehicleType">
+		<xsd:sequence>
+			<xsd:element name="vehicleNumber" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>with location global unique</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="location" type="xsd:int"/>
+			<xsd:element name="header">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="stockState" type="StockState"/>
+						<xsd:element name="salesState" type="SalesState"/>
+						<xsd:element name="brand" type="xsd:string"/>
+						<xsd:element name="modelShort" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="model" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="modelLong" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="ps" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="kw" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="color" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="number" minOccurs="0"/>
+									<xsd:element name="name" type="xsd:string"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="firstRegistration" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="milage" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="standingTime" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="listPrice" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="actualSalesPrice" type="xsd:double" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>gross</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="vehicleType" type="vehicleTypeType"/>
+						<xsd:element name="licensePlate" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="storingLocation" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="details" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="basis">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="salesman" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="id" type="xsd:string"/>
+												<xsd:element name="name" type="xsd:string"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="buyer" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="location" type="xsd:int" minOccurs="0"/>
+												<xsd:element name="id" type="xsd:int" minOccurs="0"/>
+												<xsd:element name="name" type="xsd:string"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="vin" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="yearOfModel" type="xsd:gYear" minOccurs="0"/>
+									<xsd:element name="interiorColor" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="doors" type="xsd:int" minOccurs="0"/>
+									<xsd:element name="cubicCapacity" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="bodywork" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="fuelType" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="fuelDescription" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="nationalCode" type="xsd:int" minOccurs="0"/>
+									<xsd:element name="serialNumber" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="engineNumber" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="keyNumber1" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="keyNumber2" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="radioCode" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="licensePlate" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="deRegistrationDate" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="numberPreOwners" type="xsd:int" minOccurs="0"/>
+									<xsd:element name="namePrevOwner" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="taxNumberPrevOwner" type="xsd:string" minOccurs="0"/>
+									
+									
+									<xsd:element name="kbaHsn" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="kbaTsn" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="manufacturingNumber" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="lastRegistrationDate" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="weight" type="xsd:int" minOccurs="0"/>
+									<xsd:element name="payload" type="xsd:int" minOccurs="0"/>
+									<xsd:element name="co2Gkm" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="noxMgkm" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="particulateEmission" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="fuelConsumptionCity" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="fuelConsumptionCountryside" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="fuelConsumptionCombined" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="ePASticker" type="EPASticker"/>
+									<xsd:element name="testDate1" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="testDate2" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="euImport" type="xsd:boolean" minOccurs="0"/>
+									<xsd:element name="wrack" type="xsd:boolean" minOccurs="0"/>
+									<xsd:element name="supplierOrderNo" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="carLetter" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="carLetterLocation" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="deliveryDate" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="typeCode" type="xsd:string" minOccurs="0" />
+									<xsd:element name="salesContractDate" type="xsd:date" minOccurs="0"/>
+									
+									<xsd:element name="nova" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>only for Austria</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="novaIncoming" type="xsd:boolean" minOccurs="0"/>
+												<xsd:element name="novaRate" type="xsd:double" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="incomeOfVehicle" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="vat" type="xsd:boolean" minOccurs="0"/>
+												<xsd:element name="salesman" minOccurs="0">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="id" type="xsd:string"/>
+															<xsd:element name="name" type="xsd:string"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+												<xsd:element name="invoiceNumber" type="xsd:string" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="combinationNumber" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="extraState" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="remarks" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="others" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="specialEquipment1" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="specialEquipment2" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="specialEquipment3" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="vehicleType" type="vehicleTypeType"/>
+									<xsd:element name="matchcode" type="xs:string" minOccurs="0"/>
+									<xsd:element name="masterNumber" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>specially for Switzerland, so called "Stammnummer"</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="30"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="prices">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="options" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="accessories" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="equipment" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="others" type="xsd:double" minOccurs="0"/>
+									<xsd:element name="novaVariance" type="xsd:double" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>only for Austria</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="marketPrice" type="xsd:double" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>gross</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="salesPrice1" type="xsd:double" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>gross</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="minimumSalesPrice" type="xsd:double" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>gross</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="purchase" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="vehicle" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="options" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="equipment" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="others" type="xsd:double" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="incomes" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="income" type="IncomeEffort" minOccurs="0" maxOccurs="unbounded"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="efforts" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="effort" type="IncomeEffort" minOccurs="0" maxOccurs="unbounded"/>
+												<xsd:element name="internEffort1" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="internEffort2" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="internEffort3" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="overheadCosts" type="xsd:double" minOccurs="0"/>
+												<xsd:element name="commission" type="xsd:double" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="options" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="option" type="Option" minOccurs="0" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="accessories" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="accessory" type="Accessory" minOccurs="0" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="externId" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="invoiceType">
+		<xsd:sequence>
+			<xsd:element name="invoiceID" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>unique invoice ID, for identifying</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="header">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="location" type="xsd:int"/>
+						<xsd:element name="kindOfInvoice">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="vehicle"/>
+									<xsd:enumeration value="workshop"/>
+									<xsd:enumeration value="part"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="customer" type="invoiceCustomerType"/>
+						<xsd:element name="differentInvoiceReceiver" type="invoiceCustomerType" minOccurs="0"/>
+						<xsd:element name="vehicle" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="vehicleNumber" type="xsd:int">
+										<xsd:annotation>
+											<xsd:documentation>with location global unique</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="vin" type="xsd:string"/>
+									<xsd:element name="vehicleType" type="vehicleTypeType"/>
+									<xsd:element name="brand">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="2"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<xsd:element name="type">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="20"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<xsd:element name="licensePlate">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="10"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<xsd:element name="milage" type="xsd:int"/>
+									<xsd:element name="motorNumber">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="20"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="invoiceDate" type="xsd:date"/>
+						<xsd:element name="invoiceNumber" type="xsd:string"/>
+						<xsd:element name="orderDate" type="xsd:date"/>
+						<xsd:element name="orderNumber" type="xsd:string"/>
+						<xsd:element name="acceptor" type="salesmanType"/>
+						<xsd:element name="sumNet" type="xsd:double"/>
+						<xsd:element name="vat" type="xsd:double"/>
+						<xsd:element name="nova" type="xsd:double" minOccurs="0"/>
+						<xsd:element name="sumGross" type="xsd:double"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="positions" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="position" minOccurs="1" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="positionNumber" type="xsd:int"/>
+									<xsd:element name="number" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>number of part or number of working operation number of package...</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="title" type="xsd:string"/>
+									<xsd:element name="amount" type="xsd:double"/>
+									<xsd:element name="issuer" type="salesmanType"/>
+									<xsd:element name="mechanic" type="salesmanType"/>
+									<xsd:element name="sumBeforeDiscount" type="xsd:double"/>
+									<xsd:element name="discount" type="xsd:double"/>
+									<xsd:element name="sumAfterDiscount" type="xsd:double"/>
+									<xsd:element name="vatRate" type="xsd:double"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="invoiceCustomerType">
+		<xsd:sequence>
+			<xsd:element name="customerNumber" type="customerIdentificationType"/>
+			<xsd:element name="salutation">
+				<xsd:annotation>
+					<xsd:documentation>crosstable</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:totalDigits value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name" minOccurs="1" maxOccurs="4">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sequence" type="xsd:int">
+							<xsd:annotation>
+								<xsd:documentation>1 or 2 or 3 or 4</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="name">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="address">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="street">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="zip">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="city">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="25"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="country">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="3"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

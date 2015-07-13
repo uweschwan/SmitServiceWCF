@@ -1,0 +1,1 @@
+﻿Find and Replace : ", Order = \d{1,2}"  - Order Attribut wird ersetzt durch ""

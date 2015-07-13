@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SmitService.WCF.SmitService" CodeBehind="SmitService.svc.cs" %>
