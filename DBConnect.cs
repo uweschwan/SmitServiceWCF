@@ -25,6 +25,7 @@ namespace SmitService.WCF
         {
             conn.ConnectionString = ConfigurationManager.ConnectionStrings["dsn"].ConnectionString;
             //conn.ConnectionString = "dsn=" + dsn + ";uid=" + userid + ";pwd=" + pwd;
+            //Test 123
             conn.Open();
 
         }
