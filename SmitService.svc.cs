@@ -4332,8 +4332,12 @@ namespace SmitService.WCF
             suchname = cust.matchcode;
             vorname = cust.firstName;
 
-            if(!String.IsNullOrEmpty(cust.salesman.identifier))
-                gebiet = cust.salesman.identifier;
+            if((cust.salesman != null))
+            {
+                if (!String.IsNullOrEmpty(cust.salesman.identifier))
+                    gebiet = cust.salesman.identifier;
+            }
+                
 
             switch(cust.salutation)
             {
